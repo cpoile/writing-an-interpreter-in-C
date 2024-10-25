@@ -5,48 +5,56 @@
 #include <malloc.h>
 #include <string.h>
 
-typedef struct Lexer {
-    char *input;
-    size_t len; // the length of the original input. Stored because we tokenize
-                // it by setting spaces to 0.
-    u64 position;     // points to current character
-    u64 readPosition; // points to the position after current character
-    char ch;          // current char under examination
+typedef struct Lexer
+{
+    char  *input;
+    size_t len;        // the length of the original input. Stored because we tokenize
+                       // it by setting spaces to 0.
+    u64  position;     // points to current character
+    u64  readPosition; // points to the position after current character
+    char ch;           // current char under examination
 } Lexer;
 
-void readChar(Lexer *l) {
-    if (l->readPosition >= l->len) {
+void readChar(Lexer *l)
+{
+    if (l->readPosition >= l->len)
+    {
         l->ch = 0;
-    } else {
+    }
+    else
+    {
         l->ch = l->input[l->readPosition];
     }
     l->position = l->readPosition;
     l->readPosition++;
 }
 
-Lexer NewLexer(char *input) {
-    Lexer l = {.input = input,
-               .len = strlen(input),
-               .position = 0,
-               .readPosition = 0,
-               .ch = 0};
+Lexer NewLexer(char *input)
+{
+    Lexer l = {.input = input, .len = strlen(input), .position = 0, .readPosition = 0, .ch = 0};
     readChar(&l);
     return l;
 }
 
-bool isLetter(char ch) {
+bool isLetter(char ch)
+{
     return ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') || ch == '_';
 }
 
-bool isInt(char ch) { return '0' <= ch && ch <= '9'; }
+bool isInt(char ch)
+{
+    return '0' <= ch && ch <= '9';
+}
 
-char *readIdentifier(Lexer *l) {
-    char *start = l->input + l->position;
-    u64 startPos = l->position;
-    while (isLetter(l->ch)) {
+char *readIdentifier(Lexer *l)
+{
+    char *start    = l->input + l->position;
+    u64   startPos = l->position;
+    while (isLetter(l->ch))
+    {
         readChar(l);
     }
-    u64 sz = l->position - startPos;
+    u64   sz    = l->position - startPos;
     char *duped = malloc(sz + 1);
     strncpy_s(duped, sz + 1, start, sz);
     duped[sz] = '\0';
@@ -54,42 +62,54 @@ char *readIdentifier(Lexer *l) {
     return duped;
 }
 
-static char *readInt(Lexer *l) {
-    char *start = l->input + l->position;
-    u64 startPos = l->position;
+static char *readInt(Lexer *l)
+{
+    char *start    = l->input + l->position;
+    u64   startPos = l->position;
     // TODO: need to clean up this memory alloc.
-    while (isInt(l->ch)) {
+    while (isInt(l->ch))
+    {
         readChar(l);
     }
-    u64 sz = l->position - startPos;
+    u64   sz    = l->position - startPos;
     char *duped = malloc(sz + 1);
     strncpy_s(duped, sz + 1, start, sz);
 
     return duped;
 }
 
-static int getType(char *literal) {
-    if (strcmp("let", literal) == 0) {
+static int getType(char *literal)
+{
+    if (strcmp("let", literal) == 0)
+    {
         return LET;
-    } else if (strcmp("fn", literal) == 0) {
+    }
+    else if (strcmp("fn", literal) == 0)
+    {
         return FUNCTION;
-    } else {
+    }
+    else
+    {
         return IDENT;
     }
 }
 
-void skipWhitespace(Lexer *l) {
-    while (l->ch == ' ' || l->ch == '\t' || l->ch == '\n' || l->ch == '\r') {
+void skipWhitespace(Lexer *l)
+{
+    while (l->ch == ' ' || l->ch == '\t' || l->ch == '\n' || l->ch == '\r')
+    {
         readChar(l);
     }
 }
 
-Token NextToken(Lexer *l) {
+Token NextToken(Lexer *l)
+{
     skipWhitespace(l);
 
     Token tok = (Token){ILLEGAL, ""};
 
-    switch (l->ch) {
+    switch (l->ch)
+    {
     case '=':
         tok = (Token){ASSIGN, "="};
         break;
@@ -120,13 +140,16 @@ Token NextToken(Lexer *l) {
     case ' ':
         break;
     default:
-        if (isLetter(l->ch)) {
+        if (isLetter(l->ch))
+        {
             tok.literal = readIdentifier(l);
-            tok.type = getType(tok.literal);
+            tok.type    = getType(tok.literal);
             return tok;
-        } else if (isInt(l->ch)) {
+        }
+        else if (isInt(l->ch))
+        {
             tok.literal = readInt(l);
-            tok.type = INT;
+            tok.type    = INT;
             return tok;
         }
         // falls through with default illegal

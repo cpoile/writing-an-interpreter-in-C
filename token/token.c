@@ -1,5 +1,8 @@
-enum TOKEN
-{
+#pragma once
+#include "base.c"
+#include <string.h>
+
+enum TOKEN {
     ILLEGAL,
     E_O_F,
 
@@ -24,13 +27,13 @@ enum TOKEN
     LET
 };
 
-const char* TOKEN_TO_STR[] = {"ILLEGAL", "EOF", "IDENT", "INT", "ASSIGN", "PLUS", "COMMA", "SEMICOLON",
-                              "LPAREN", "RPAREN", "LBRACE", "FUNCTION", "LET"};
+const char *TOKEN_TO_STR[] = {
+    "ILLEGAL",   "EOF",    "IDENT",  "INT",    "ASSIGN", "PLUS",     "COMMA",
+    "SEMICOLON", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "FUNCTION", "LET"};
 
-typedef struct token
-{
+typedef struct {
     int type;
-    char* literal;
+    char *literal;
 } Token;
 
 bool token_equal(Token a, Token b) {

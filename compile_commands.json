@@ -1,0 +1,7 @@
+[
+    {
+        "directory": "C:/Users/Chris/git/c/writing_an_interpreter",
+        "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\Llvm\\x64\\bin\\clang-cl.exe  /nologo -Wall -Wpedantic /Ob0 /Od /RTC1 -MDd -Zi /Fobuild\\writing_an_interpreter.dir\\interpreter.obj -Ibase -Itoken /FdTARGET_COMPILE_PDB -c -- C:\\Users\\Chris\\git\\c\\writing_an_interpreter\\all.c",
+        "file": "C:\\Users\\Chris\\git\\c\\writing_an_interpreter\\all.c"
+    }
+]

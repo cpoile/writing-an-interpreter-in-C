@@ -52,3 +52,8 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+/build/
+/.cache/
+/.idea/
+/CMakeFiles/
+/cmake-build-debug/

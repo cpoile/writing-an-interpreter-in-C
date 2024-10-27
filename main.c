@@ -9,6 +9,6 @@ int main(int argv, char **args)
         TestNextToken();
     }
 
-    printf("Hello, World! %d\n", 10001);
+    printf("\nTests passed!\n");
     return 0;
 }

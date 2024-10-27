@@ -29,6 +29,15 @@ void readChar(Lexer *l)
     l->readPosition++;
 }
 
+char peekChar(Lexer *l)
+{
+    if (l->readPosition >= l->len)
+    {
+        return 0;
+    }
+    return l->input[l->readPosition];
+}
+
 Lexer NewLexer(char *input)
 {
     Lexer l = {.input = input, .len = strlen(input), .position = 0, .readPosition = 0, .ch = 0};
@@ -80,13 +89,33 @@ static char *readInt(Lexer *l)
 
 static int getType(char *literal)
 {
-    if (strcmp("let", literal) == 0)
+    if (strcmp("fn", literal) == 0)
+    {
+        return FUNCTION;
+    }
+    else if (strcmp("let", literal) == 0)
     {
         return LET;
     }
-    else if (strcmp("fn", literal) == 0)
+    else if (strcmp("true", literal) == 0)
     {
-        return FUNCTION;
+        return TRUE;
+    }
+    else if (strcmp("false", literal) == 0)
+    {
+        return FALSE;
+    }
+    else if (strcmp("if", literal) == 0)
+    {
+        return IF;
+    }
+    else if (strcmp("else", literal) == 0)
+    {
+        return ELSE;
+    }
+    else if (strcmp("return", literal) == 0)
+    {
+        return RETURN;
     }
     else
     {
@@ -111,6 +140,12 @@ Token NextToken(Lexer *l)
     switch (l->ch)
     {
     case '=':
+        if (peekChar(l) == '=')
+        {
+            tok = (Token){EQ, "=="};
+            readChar(l);
+            break;
+        }
         tok = (Token){ASSIGN, "="};
         break;
     case '+':
@@ -120,6 +155,12 @@ Token NextToken(Lexer *l)
         tok = (Token){MINUS, "-"};
         break;
     case '!':
+        if (peekChar(l) == '=')
+        {
+            tok = (Token){NOT_EQ, "!="};
+            readChar(l);
+            break;
+        }
         tok = (Token){BANG, "!"};
         break;
     case '*':

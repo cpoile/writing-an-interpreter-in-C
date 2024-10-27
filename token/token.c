@@ -20,6 +20,8 @@ enum TOKEN
     SLASH,
     LT,
     GT,
+    EQ,
+    NOT_EQ,
 
     // Delimiters
     COMMA,
@@ -31,12 +33,18 @@ enum TOKEN
 
     // Keywords
     FUNCTION,
-    LET
+    LET,
+    TRUE,
+    FALSE,
+    IF,
+    ELSE,
+    RETURN,
 };
 
-const char *TOKEN_TO_STR[] = {"ILLEGAL", "EOF",      "IDENT",  "INT",    "ASSIGN",   "PLUS",  "MINUS",
-                              "BANG",    "ASTERISK", "SLASH",  "LT",     "GT",       "COMMA", "SEMICOLON",
-                              "LPAREN",  "RPAREN",   "LBRACE", "RBRACE", "FUNCTION", "LET"};
+const char *TOKEN_TO_STR[] = {"ILLEGAL", "EOF",       "IDENT",  "INT",    "ASSIGN", "PLUS",   "MINUS",
+                              "BANG",    "ASTERISK",  "SLASH",  "LT",     "GT",     "EQ",     "NOT_EQ",
+                              "COMMA",   "SEMICOLON", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "FUNCTION",
+                              "LET",     "TRUE",      "FALSE",  "IF",     "ELSE",   "RETURN"};
 
 typedef struct
 {

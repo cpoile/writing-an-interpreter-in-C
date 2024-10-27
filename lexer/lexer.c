@@ -113,6 +113,30 @@ Token NextToken(Lexer *l)
     case '=':
         tok = (Token){ASSIGN, "="};
         break;
+    case '+':
+        tok = (Token){PLUS, "+"};
+        break;
+    case '-':
+        tok = (Token){MINUS, "-"};
+        break;
+    case '!':
+        tok = (Token){BANG, "!"};
+        break;
+    case '*':
+        tok = (Token){ASTERISK, "*"};
+        break;
+    case '/':
+        tok = (Token){SLASH, "/"};
+        break;
+    case '<':
+        tok = (Token){LT, "<"};
+        break;
+    case '>':
+        tok = (Token){GT, ">"};
+        break;
+    case ',':
+        tok = (Token){COMMA, ","};
+        break;
     case ';':
         tok = (Token){SEMICOLON, ";"};
         break;
@@ -121,12 +145,6 @@ Token NextToken(Lexer *l)
         break;
     case ')':
         tok = (Token){RPAREN, ")"};
-        break;
-    case ',':
-        tok = (Token){COMMA, ","};
-        break;
-    case '+':
-        tok = (Token){PLUS, "+"};
         break;
     case '{':
         tok = (Token){LBRACE, "{"};

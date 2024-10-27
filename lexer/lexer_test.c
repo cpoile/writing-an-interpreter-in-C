@@ -1,5 +1,6 @@
 #pragma once
 #include "lexer.c"
+#include "token.c"
 #include <assert.h>
 #include <malloc.h>
 #include <stdio.h>
@@ -23,7 +24,9 @@ void TestNextToken(void)
                   "  x + y;\n"
                   "};\n"
                   "\n"
-                  "let result = add(five, ten);\n";
+                  "let result = add(five, ten);\n"
+                  "!-/*5;\n"
+                  "5 < 10 > 5;\n";
 
     Token expected_tokens[] = {
         {LET, "let"},   {IDENT, "five"},  {ASSIGN, "="}, {INT, "5"},        {SEMICOLON, ";"}, {LET, "let"},
@@ -32,6 +35,8 @@ void TestNextToken(void)
         {RPAREN, ")"},  {LBRACE, "{"},    {IDENT, "x"},  {PLUS, "+"},       {IDENT, "y"},     {SEMICOLON, ";"},
         {RBRACE, "}"},  {SEMICOLON, ";"}, {LET, "let"},  {IDENT, "result"}, {ASSIGN, "="},    {IDENT, "add"},
         {LPAREN, "("},  {IDENT, "five"},  {COMMA, ","},  {IDENT, "ten"},    {RPAREN, ")"},    {SEMICOLON, ";"},
+        {BANG, "!"},    {MINUS, "-"},     {SLASH, "/"},  {ASTERISK, "*"},   {INT, "5"},       {SEMICOLON, ";"},
+        {INT, "5"},     {LT, "<"},        {INT, "10"},   {GT, ">"},         {INT, "5"},       {SEMICOLON, ";"},
         {E_O_F, ""},
     };
 

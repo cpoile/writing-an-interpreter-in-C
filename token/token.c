@@ -52,7 +52,8 @@ typedef struct
     char *literal;
 } Token;
 
-bool token_equal(Token a, Token b)
+bool
+token_equal(Token a, Token b)
 {
     return (a.type == b.type && strcmp(a.literal, b.literal) == 0);
 }

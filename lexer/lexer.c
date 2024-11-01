@@ -15,7 +15,8 @@ typedef struct Lexer
     char ch;           // current char under examination
 } Lexer;
 
-void readChar(Lexer *l)
+void
+readChar(Lexer *l)
 {
     if (l->readPosition >= l->len)
     {
@@ -29,7 +30,8 @@ void readChar(Lexer *l)
     l->readPosition++;
 }
 
-char peekChar(Lexer *l)
+char
+peekChar(Lexer *l)
 {
     if (l->readPosition >= l->len)
     {
@@ -38,24 +40,28 @@ char peekChar(Lexer *l)
     return l->input[l->readPosition];
 }
 
-Lexer NewLexer(char *input)
+Lexer
+NewLexer(char *input)
 {
     Lexer l = {.input = input, .len = strlen(input), .position = 0, .readPosition = 0, .ch = 0};
     readChar(&l);
     return l;
 }
 
-bool isLetter(char ch)
+bool
+isLetter(char ch)
 {
     return ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') || ch == '_';
 }
 
-bool isInt(char ch)
+bool
+isInt(char ch)
 {
     return '0' <= ch && ch <= '9';
 }
 
-char *readIdentifier(Lexer *l)
+char *
+readIdentifier(Lexer *l)
 {
     char *start    = l->input + l->position;
     u64   startPos = l->position;
@@ -71,7 +77,8 @@ char *readIdentifier(Lexer *l)
     return duped;
 }
 
-static char *readInt(Lexer *l)
+static char *
+readInt(Lexer *l)
 {
     char *start    = l->input + l->position;
     u64   startPos = l->position;
@@ -87,7 +94,8 @@ static char *readInt(Lexer *l)
     return duped;
 }
 
-static int getType(char *literal)
+static int
+getType(char *literal)
 {
     if (strcmp("fn", literal) == 0)
     {
@@ -123,7 +131,8 @@ static int getType(char *literal)
     }
 }
 
-void skipWhitespace(Lexer *l)
+void
+skipWhitespace(Lexer *l)
 {
     while (l->ch == ' ' || l->ch == '\t' || l->ch == '\n' || l->ch == '\r')
     {
@@ -131,7 +140,8 @@ void skipWhitespace(Lexer *l)
     }
 }
 
-Token NextToken(Lexer *l)
+Token
+NextToken(Lexer *l)
 {
     skipWhitespace(l);
 

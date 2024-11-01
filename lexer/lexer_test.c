@@ -5,7 +5,8 @@
 #include <malloc.h>
 #include <stdio.h>
 
-void assert_eq(Token expected, Token actual, u64 curPosition)
+void
+assert_eq(Token expected, Token actual, u64 curPosition)
 {
     if (!token_equal(expected, actual))
     {
@@ -15,7 +16,8 @@ void assert_eq(Token expected, Token actual, u64 curPosition)
     }
 }
 
-void TestNextToken(void)
+void
+TestNextToken(void)
 {
     char *input = "let five = 5;\n"
                   "let ten = 10;\n"

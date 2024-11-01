@@ -6,7 +6,8 @@
 
 const char *PROMPT = ">> ";
 
-void repl_start(FILE *in, FILE *out)
+void
+repl_start(FILE *in, FILE *out)
 {
     char line[100];
 
@@ -21,7 +22,8 @@ void repl_start(FILE *in, FILE *out)
         }
 
         Lexer l = NewLexer(line);
-        for (Token tok = NextToken(&l); tok.type != E_O_F; tok = NextToken(&l)) {
+        for (Token tok = NextToken(&l); tok.type != E_O_F; tok = NextToken(&l))
+        {
             fprintf(out, "Token: %s, Literal: %s\n", TOKEN_TO_STR[tok.type], tok.literal);
         }
     }

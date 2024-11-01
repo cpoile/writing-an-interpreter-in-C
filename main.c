@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(int argv, char **args)
+int
+main(int argv, char **args)
 {
     if (argv > 1 && strcmp(args[1], "test") == 0)
     {
@@ -12,6 +13,7 @@ int main(int argv, char **args)
         printf("\nTests passed!\n");
     }
 
+    isLetter('h');
     char   *username;
     size_t  len;
     errno_t err = _dupenv_s(&username, &len, "USERNAME");
